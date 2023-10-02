@@ -15,7 +15,7 @@ export default function Navbar(props) {
         .get("http://localhost:8081/auth")
         .then((response) => {
           console.log(response.data);
-
+          setIsLoggedOut(false);
           if (response.data.role) {
             setUser(response.data);
             setUserName(response.data.name.name);
@@ -43,6 +43,7 @@ export default function Navbar(props) {
     e.preventDefault();
     await axios.get("http://localhost:8081/auth/logout").then(async (response) => {
       await setUser({});
+      setIsLoggedOut(true);
       alert("Logged out successfully!");
       navigate("/login");
     });
